@@ -1,0 +1,241 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "description": "API for Social Media application",
+    "title": "Social Media API"
+  },
+  "host": "localhost:8000",
+  "securityDefinitions": {
+    "JWT": {
+      "in": "header",
+      "name": "Authorization",
+      "type": "apiKey"
+    }
+  },
+  "paths": {
+      "/api/users/getAll": {
+          "get": {
+              "tags": ["Users"],
+              "summary": "Get all users",
+              "description": "Get all users",
+              "parameters": [
+                  {
+                      "in": "body",
+                      "name": "body",
+                      "description": "User Credentials for sign up"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of all the signed up users"
+                    },
+                    "400": {
+                        "description": "Incorrect Credentials"
+                    }
+                }
+            }
+        },
+      "/api/users/signup": {
+          "post": {
+              "tags": ["Users"],
+              "summary": "SignUp",
+              "description": "User SignUp",
+              "parameters": [
+                  {
+                      "in": "body",
+                      "name": "body",
+                      "description": "User Credentials for sign up",
+                      "schema": {
+                          "type": "object",
+                          "properties": {
+                              "name": {
+                                  "type": "string"
+                                },
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Incorrect Credentials"
+                    }
+                }
+            }
+        },
+        "/api/users/signin": {
+            "post": {
+              "tags": ["Users"],
+              "summary": "Login",
+              "description": "User login to get token",
+              "parameters": [
+                {
+                  "in": "body",
+                  "name": "body",
+                  "description": "User Credentials",
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "OK"
+                },
+                "400": {
+                  "description": "Incorrect Credentials"
+                }
+              }
+            }
+          },
+        "/api/posts/": {
+            "post": {
+              "tags": ["Posts"],
+              "summary": "Create a new post",
+              "description": "Create a new post when a user is signed in using a jwt token",
+              "parameters": [
+                {
+                  "in": "body",
+                  "name": "body",
+                  "description": "Post Details",
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "userId": {
+                        "type": "number"
+                      },
+                      "caption": {
+                        "type": "string"
+                      },
+                      "imageUrl": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "201": {
+                  "description": "Returns the created post"
+                }
+              }
+            }
+          },
+        "/api/posts/all": {
+            "get": {
+              "tags": ["Posts"],
+              "summary": "Get all posts",
+              "description": "Get all posts created by all the users",
+              "parameters": [
+                {
+                  "in": "body",
+                  "name": "body",
+                  "description": "Posts",
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "userId": {
+                        "type": "number"
+                      },
+                      "caption": {
+                        "type": "string"
+                      },
+                      "imageUrl": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Returns all the posts"
+                }
+              }
+            }
+          },
+        "/api/posts": {
+            "get": {
+              "tags": ["Posts"],
+              "summary": "Get all posts by a user",
+              "description": "Get all posts created by all the users",
+              "parameters": [
+                {
+                  "in": "body",
+                  "name": "body",
+                  "description": "Posts",
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "userId": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Returns all the posts by a user"
+                },
+                "404":{
+                    "description": "No Posts Found"
+                }
+              }
+            }
+          },
+        "/api/posts/:id": {
+            "get": {
+              "tags": ["Posts"],
+              "summary": "To find post from a post id",
+              "description": "To find post from a post id",
+              "parameters": [
+                {
+                  "in": "body",
+                  "name": "body",
+                  "description": "Posts",
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "postId": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Returns post by postId"
+                },
+                "404":{
+                    "description": "No Posts Found"
+                }
+              }
+            }
+          }
+  }
+}
